@@ -7,14 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { BoxUpload, ImagePreview } from "../style";
 import FolderIcon from './assets/folder_icon_transparent.png';
 import CloseIcon from "./assets/CloseIcon.svg";
-import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIconDialog from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -32,33 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DialogTitle = withStyles(useStyles)((props) => {
-    const { children, classes, onClose, ...other } = props;
-    return (
-      <MuiDialogTitle disableTypography className={classes.root} {...other}>
-        <Typography variant="h6">{children}</Typography>
-        {onClose ? (
-          <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-            <CloseIconDialog />
-          </IconButton>
-        ) : null}
-      </MuiDialogTitle>
-    );
-  });
-  
-  const DialogContent = withStyles((theme) => ({
-    root: {
-      padding: theme.spacing(2),
-    },
-  }))(MuiDialogContent);
-  
-  const DialogActions = withStyles((theme) => ({
-    root: {
-      margin: 0,
-      padding: theme.spacing(1),
-    },
-  }))(MuiDialogActions);
-
 function Experiencias() {
     const classes = useStyles();
 
@@ -75,7 +45,7 @@ function Experiencias() {
     };
     const handleClose = () => {
         setIsUploaded(false);
-        setValueNew('');
+        setValueNew("");
         setOpen(false);
     };
 
@@ -121,7 +91,7 @@ function Experiencias() {
         console.log(res);
         console.log(res.data);
         handleClickOpen();
-      })
+    })
   }
 
   return (
@@ -141,8 +111,8 @@ function Experiencias() {
         <Grid item xs = {12}>
         <TextField style={{ width: 300 }}
           id="filled-read-only-input"
-          label="Institución"
-          defaultValue="Instituto AAAA"
+          label="Nombre y Apellido"
+          defaultValue="Roberto Gomez"
           InputProps={{
             readOnly: true,
           }}
@@ -150,8 +120,8 @@ function Experiencias() {
         />
         <TextField style={{ width: 300 }}
           id="filled-read-only-input"
-          label="Lugar"
-          defaultValue="Ciudad de Buenos Aires"
+          label="Especialidad"
+          defaultValue="Psicólogo"
           InputProps={{
             readOnly: true,
           }}
@@ -159,8 +129,8 @@ function Experiencias() {
         />
         <TextField style={{ width: 300 }}
           id="filled-read-only-input"
-          label="Otro"
-          defaultValue="Pediatría"
+          label="Direccion"
+          defaultValue="Avenida Las Heras 225"
           InputProps={{
             readOnly: true,
           }}
@@ -263,18 +233,21 @@ function Experiencias() {
         </Grid>
         </form>
     </Grid>
-    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Experiencia publicada
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Se ha realizado la publicación exitosamente.
-          </Typography>
+    <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Experiencia Publicada 👍 "}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Tu publicación se realizó con éxito!
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Cerrar
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Aceptar
           </Button>
         </DialogActions>
       </Dialog>
