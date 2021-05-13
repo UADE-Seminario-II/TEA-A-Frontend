@@ -5,12 +5,12 @@ import Button from "@material-ui/core/Button";
 const CartasExperiencia = (props) => {
   const useStyles = makeStyles((theme) => ({
     container: {
-      backgroundColor: "#594DF5",
+      backgroundColor: "#3f51b5",
     },
     root: {
       minWidth: 275,
       display: "inline-block",
-      backgroundColor: "#594DF5",
+      backgroundColor: "#3f51b5",
       color: "white",
       margin: "20px",
     },
@@ -21,7 +21,8 @@ const CartasExperiencia = (props) => {
       color: "white",
     },
     title: {
-      fontSize: 14,
+      fontSize: 20,
+      fontWeight:"bold",
       color: "white",
     },
     pos: {
@@ -41,22 +42,26 @@ const CartasExperiencia = (props) => {
               color="textSecondary"
               gutterBottom
             >
-              Word of the Day
+              {item.titulo}
             </Typography>
             <Typography variant="h5" component="h2">
               {item.descripcion}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              adjective
+              {item.actividad.descripcion}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              {item.puntaje}
             </Typography>
             <Typography variant="body2" component="p">
-              well meaning and kindly.
+              {item.comentario}
               <br />
-              {'"a benevolent smile"'}
+              <br />
+              {item.usuario.usuario}
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Learn More</Button>
+            <Button size="small">Button</Button>
           </CardActions>
         </Card>
       ))}
