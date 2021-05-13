@@ -65,16 +65,27 @@ function Experiencias() {
     const [image, setImage] = useState("");
     const [isUploaded, setIsUploaded] = useState(false);
     const [typeFile, setTypeFile] = useState("");
-    const [experiencia, setExperiencia] = useState("");
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [valueNew, setValueNew] = useState();
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
+        setIsUploaded(false);
+        setValueNew('');
         setOpen(false);
     };
 
+  function handleTitleChange(data){
+      setTitle(data);
+  }
+
+  function handleDescriptionChange(data){
+    setDescription(data);
+}
 
   function handleImageChange(e) {
     if (e.target.files && e.target.files[0]) {
@@ -91,69 +102,21 @@ function Experiencias() {
   }
 
   function handleSubmit(event) {
-    // event.preventDefault();
     console.log("presione publicar");
-    const exp = {
-        id: 6,
-        titulo: "Jugando en el club pruebaM",
-        comentario: "Muy buen trato pruebaM!!!",
-        puntaje: 4,
+    let exp = {
+        titulo: title,
+        comentario: description,
+        puntaje: 10,
         usuario: {
-            idUsuario: 1,
-            nombre: "qwq",
-            apellido: "aas",
-            usuario: "sgonzalez",
-            password: "qwqw",
-            mail: "qqw",
-            telefono: "qwqw",
-            enable: true,
-            nroDocumento: "qw",
-            direccion: "qqw",
-            localidad: "qqwq",
-            provincia: "qwq"
+            idUsuario: 1
         },
         institucion: null,
         profesional: null,
         actividad: {
-            id: 3,
-            descripcion: "aaaa",
-            latitud: "2",
-            longitud: "4",
-            localidad: {
-                id: 1,
-                localidad: "caba"
+            id: 5,
             }
-        }
-    };    
-
-    axios.post(`https://sip2-backend.herokuapp.com/Experiencias`, { exp })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
-
-  function handleGetProfesionales() {
-    console.log("presione obtener profesionales");
-    axios.get(`https://sip2-backend.herokuapp.com/Profesionales`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
-
-  function handleGetInstituciones() {
-    console.log("presione obtener instituciones");
-    axios.get(`https://sip2-backend.herokuapp.com/Instituciones`)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
-
-  function handleGetActividades() {
-    console.log("presione obtener actividades");
-    axios.get(`https://sip2-backend.herokuapp.com/Profesionales`)
+    }; 
+    axios.post(`https://sip2-backend.herokuapp.com/Experiencias`, exp )
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -209,16 +172,20 @@ function Experiencias() {
           required
           id="outlined-required"
           label="Titulo"
+          value={valueNew}
           variant="outlined"
+          onChange= {(event) => handleTitleChange(event.target.value)}
         />
         </Grid>
         <Grid item xs = {12}>
         <TextField style={{ width: 930 }}
           id="outlined-multiline-static"
           label="Experiencia"
+          value={valueNew}
           multiline
           rows={10}
           variant="outlined"
+          onChange= {(event) => handleDescriptionChange(event.target.value)}
         />
         </Grid>
         <Grid container
@@ -289,7 +256,7 @@ function Experiencias() {
                 </Button>
               </Grid>
               <Grid item xs = {2}>
-                <Button variant="contained" size="medium" color="primary" className={classes.margin} onClick={() => handleGetActividades()}>
+                <Button variant="contained" size="medium" color="primary" className={classes.margin} onClick={() => handleSubmit()}>
                     Publicar
                 </Button>
               </Grid>
