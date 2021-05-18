@@ -33,6 +33,7 @@ const CartasExperiencia = (props) => {
 
   return (
     <div>
+      {console.log(props.cartas)}
       {props.cartas.map((item, index) => (
         <Card className={classes.root}>
           <CardContent>
