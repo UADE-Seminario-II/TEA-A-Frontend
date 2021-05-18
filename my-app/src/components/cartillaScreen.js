@@ -1,22 +1,30 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import CartasExperiencia from "./CartasExperiencia";
 import NavBar from "./NavBar";
-import axios from 'axios'
+import axios from "axios";
+
+let ready = false;
 
 function Cartilla() {
   let [responseData, setResponseData] = React.useState([]);
 
   React.useEffect(() => {
-    axios.get(`https://sip2-backend.herokuapp.com/Experiencias`)
-    .then((response) => {
-      setResponseData(response.data)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-    console.log(responseData)
-  }, [setResponseData, responseData])
-  
+    if (!ready) {
+      axios
+        .get(`https://sip2-backend.herokuapp.com/Experiencias`)
+        .then((response) => {
+          console.log(response.data);
+          setResponseData(response.data);
+          ready = true;
+        })
+        .catch((error) => {
+          console.log(error);
+          ready = true;
+        });
+      ready = true;
+    }
+  }, [setResponseData, responseData]);
+
   return (
     <div>
       <NavBar></NavBar>
