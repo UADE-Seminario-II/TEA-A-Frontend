@@ -13,6 +13,9 @@ const CartasExperiencia = (props) => {
       backgroundColor: "#3f51b5",
       color: "white",
       margin: "20px",
+      maxWidth:"200px",
+      maxHeight:"300px",
+      wordWrap:"break-word",
     },
     bullet: {
       display: "inline-block",
@@ -45,10 +48,10 @@ const CartasExperiencia = (props) => {
               {item.titulo}
             </Typography>
             <Typography variant="h5" component="h2">
-              {item.descripcion}
+              {item.detalleTipoExperiencia}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              {item.actividad.descripcion}
+              {item.tipoExperiencia}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
               {item.puntaje}

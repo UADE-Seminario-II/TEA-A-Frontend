@@ -3,6 +3,7 @@ import { BrowserRouter as Router,Route, useHistory, Switch} from "react-router-d
 import Home from "./components/homeScreen";
 import Cartilla from "./components/cartillaScreen";
 import Experiencias from "./components/experienciasScreen";
+import Instructivos from "./components/instructivosScreen"
 
 export default function Routes(){
     console.log("Redirigiendo")
@@ -13,6 +14,7 @@ export default function Routes(){
                 <Route exact path="/Home" component={Home}/>
                 <Route exact path="/Cartilla" component={Cartilla}/>
                 <Route exact path="/Experiencias" component={Experiencias}/>
+                <Route exact path="/Instructivos" component={Instructivos}/>
             </Switch>
         </Router>
     )

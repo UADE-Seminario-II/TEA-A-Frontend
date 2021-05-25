@@ -116,6 +116,11 @@ export default function PersistentDrawerRight() {
         history.push({
             pathname: '/Experiencias',
         })
+      }else if(text==="Instructivos"){
+        setOpen(false);
+        history.push({
+            pathname: '/Instructivos',
+        })
       }
   }
   return (
@@ -158,7 +163,7 @@ export default function PersistentDrawerRight() {
             </div>
             <Divider />
             <List>
-            {['Home', 'LogIn', 'Cartilla', 'Experiencias'].map((text, index) => (
+            {['Home', 'LogIn', 'Cartilla', 'Experiencias','Instructivos'].map((text, index) => (
                 <ListItem button key={text} onClick={() => Redirect(text)}>
                     <ListItemIcon>{index=== 0 ? <HomeIcon /> : <div />}{index===1 ? <ExitToAppIcon /> : <div />} {index===2 ? <MenuBookIcon /> : <div/>} {index===3 ? <RecordVoiceOverIcon />:<div/>}</ListItemIcon>
                 <ListItemText primary={text} />
