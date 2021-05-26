@@ -1,36 +1,38 @@
-import React , { useState } from 'react'
-import NavBar from './NavBar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from "react";
+import NavBar from "./NavBar";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
 import { BoxUpload, ImagePreview } from "../style";
-import FolderIcon from './assets/folder_icon_transparent.png';
+import FolderIcon from "./assets/folder_icon_transparent.png";
 import CloseIcon from "./assets/CloseIcon.svg";
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import axios from 'axios';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import axios from "axios";
+import Rating from "@material-ui/lab/Rating";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: '25ch',
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
     },
     closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        color: theme.palette.grey[500],
+      position: "absolute",
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
     },
   },
 }));
 
 function Experiencias() {
-    const classes = useStyles();
+  const classes = useStyles();
 
     const [isTwoImage, setIsTwoImage] = useState(false);
     const [isThreeImage, setIsThreeImage] = useState(false);
@@ -60,13 +62,13 @@ function Experiencias() {
         setOpen(false);
     };
 
-  function handleTitleChange(data){
-      setTitle(data);
+  function handleTitleChange(data) {
+    setTitle(data);
   }
 
-  function handleDescriptionChange(data){
+  function handleDescriptionChange(data) {
     setDescription(data);
-}
+  }
 
   function handleImageChange(e) {
     if (e.target.files && e.target.files[0]) {
@@ -154,21 +156,22 @@ function Experiencias() {
         console.log(res);
         console.log(res.data);
         handleClickOpen();
-    })
+      });
   }
 
   return (
-      
     <div>
       <NavBar></NavBar>
-      <Grid container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justify="center"
-          style={{ minHeight: '80vh' }}>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: "80vh" }}
+      >
         <form className={classes.root} noValidate autoComplete="off">
-        <div>
+          <div>
             <h1>Contanos tu experiencia 😁</h1>
         </div>
         <Grid item xs = {12}>
@@ -238,42 +241,42 @@ function Experiencias() {
                   <p style={{ color: "#444" }}>Hacer Click</p>
                 </label>
 
-                <input
-                  id="upload-input"
-                  type="file"
-                  accept=".jpg,.jpeg,.gif,.png,.mov,.mp4"
-                  onChange={handleImageChange}
-                />
-              </>
-            ) : (
-              <ImagePreview>
-                <img
-                  className="close-icon"
-                  src={CloseIcon}
-                  alt="CloseIcon"
-                  onClick={() => {
-                    setIsUploaded(false);
-                    setImage(null);
-                  }}
-                />
-                {typeFile.includes("video") ? (
-                  <video
-                    id="uploaded-image"
-                    src={image}
-                    draggable={false}
-                    controls
-                    autoPlay
-                    alt="uploaded-img"
-                  />
+                    <input
+                      id="upload-input"
+                      type="file"
+                      accept=".jpg,.jpeg,.gif,.png,.mov,.mp4"
+                      onChange={handleImageChange}
+                    />
+                  </>
                 ) : (
-                  <img
-                    id="uploaded-image"
-                    src={image}
-                    draggable={false}
-                    alt="uploaded-img"
-                  />
-                )}
-              </ImagePreview>
+                  <ImagePreview>
+                    <img
+                      className="close-icon"
+                      src={CloseIcon}
+                      alt="CloseIcon"
+                      onClick={() => {
+                        setIsUploaded(false);
+                        setImage(null);
+                      }}
+                    />
+                    {typeFile.includes("video") ? (
+                      <video
+                        id="uploaded-image"
+                        src={image}
+                        draggable={false}
+                        controls
+                        autoPlay
+                        alt="uploaded-img"
+                      />
+                    ) : (
+                      <img
+                        id="uploaded-image"
+                        src={image}
+                        draggable={false}
+                        alt="uploaded-img"
+                      />
+                    )}
+                  </ImagePreview>
             )}
           </div>
         </BoxUpload>
@@ -406,14 +409,16 @@ function Experiencias() {
               </Grid>
         </Grid>
         </form>
-    </Grid>
-    <Dialog
+      </Grid>
+      <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Experiencia Publicada 👍 "}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">
+          {"Experiencia Publicada 👍 "}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Tu publicación se realizó con éxito!
@@ -426,9 +431,7 @@ function Experiencias() {
         </DialogActions>
       </Dialog>
     </div>
-      
-     
   );
 }
 
-export default Experiencias
+export default Experiencias;
