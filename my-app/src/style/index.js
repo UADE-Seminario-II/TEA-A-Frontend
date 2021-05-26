@@ -29,8 +29,9 @@ export const BoxUpload = styled.div`
     border: 1px dashed #799CD9;
     /* padding: 36px 48px; */
     position: relative;
-    height: 350px;
-    width: 350px;
+    height: 150px;
+    width: 150px;
+    left: 40px;
     background: #FBFBFF;
     border-radius: 20px;
     .image-upload {
@@ -53,8 +54,8 @@ export const ImagePreview = styled.div`
     position: relative;
     /* cursor: pointer; */
     #uploaded-image{
-        height: 350px;
-        width: 350px;
+        height: 130px;
+        width: 130px;
         object-fit: cover;
         border-radius: 20px;
     }

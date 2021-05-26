@@ -32,8 +32,15 @@ const useStyles = makeStyles((theme) => ({
 function Experiencias() {
     const classes = useStyles();
 
+    const [isTwoImage, setIsTwoImage] = useState(false);
+    const [isThreeImage, setIsThreeImage] = useState(false);
     const [image, setImage] = useState("");
+    const [image2, setImage2] = useState("");
+    const [image3, setImage3] = useState("");
     const [isUploaded, setIsUploaded] = useState(false);
+    const [isUploaded2, setIsUploaded2] = useState(false);
+    const [isUploaded3, setIsUploaded3] = useState(false);
+    const [imageValue, setImageValue] = useState([]);
     const [typeFile, setTypeFile] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -45,6 +52,10 @@ function Experiencias() {
     };
     const handleClose = () => {
         setIsUploaded(false);
+        setIsUploaded2(false);
+        setIsUploaded3(false);
+        setIsTwoImage(false);
+        setIsThreeImage(false);
         setValueNew("");
         setOpen(false);
     };
@@ -61,10 +72,40 @@ function Experiencias() {
     if (e.target.files && e.target.files[0]) {
       setTypeFile(e.target.files[0].type);
       let reader = new FileReader();
-
+      setImageValue(e.target.files[0]);
       reader.onload = function (e) {
         setImage(e.target.result);
         setIsUploaded(true);
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    setIsTwoImage(true);
+  }
+
+  function handleImageChange2(e) {
+    if (e.target.files && e.target.files[0]) {
+      setTypeFile(e.target.files[0].type);
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage2(e.target.result);
+        setIsUploaded2(true);
+      };
+
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    setIsThreeImage(true);
+  }
+
+  function handleImageChange3(e) {
+    if (e.target.files && e.target.files[0]) {
+      setTypeFile(e.target.files[0].type);
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        setImage3(e.target.result);
+        setIsUploaded3(true);
       };
 
       reader.readAsDataURL(e.target.files[0]);
@@ -77,15 +118,37 @@ function Experiencias() {
         titulo: title,
         comentario: description,
         puntaje: 10,
+        tipoExperiencia: '',
+        getdetalleTipoExperiencia: {},
         usuario: {
             idUsuario: 1
         },
         institucion: null,
         profesional: null,
         actividad: {
-            id: 5,
+            id: 45,
             }
     }; 
+    
+    console.log("imagen que se sube", [imageValue])
+    let formData =  new FormData();
+    formData.append('image', imageValue);
+    console.log("FORM DATA", formData.values)
+    let array = [];
+    array.push(formData);
+    console.log("ARRAY", array)
+    const params = new URLSearchParams({
+      image: formData
+    }).toString();
+    console.log("PARAMS ", params);
+    // axios.post(`https://sip2-backend.herokuapp.com/Experiencias/46/uploadImages?` + params, { headers: {
+    //     'Content-Type': 'multipart/form-data'}
+    //   })
+    //   .then(res => {
+    //     console.log(res);
+    //     console.log(res.data);
+    //     handleClickOpen();
+    //   })
     axios.post(`https://sip2-backend.herokuapp.com/Experiencias`, exp )
       .then(res => {
         console.log(res);
@@ -160,7 +223,6 @@ function Experiencias() {
         </Grid>
         <Grid container
           alignItems="center"
-          justify="center"
           style={{ minHeight: '20vh' }}>
         <BoxUpload>
           <div className="image-upload">
@@ -171,9 +233,9 @@ function Experiencias() {
                     src={FolderIcon}
                     draggable={"false"}
                     alt="placeholder"
-                    style={{ width: 100, height: 100 }}
+                    style={{ width: 70, height: 70 }}
                   />
-                  <p style={{ color: "#444" }}>Click to upload image</p>
+                  <p style={{ color: "#444" }}>Hacer Click</p>
                 </label>
 
                 <input
@@ -215,6 +277,118 @@ function Experiencias() {
             )}
           </div>
         </BoxUpload>
+        {isTwoImage ? (
+        <BoxUpload>
+          <div className="image-upload" if={false}>
+            {!isUploaded2 ? (
+              <>
+                <label htmlFor="upload-input">
+                  <img
+                    src={FolderIcon}
+                    draggable={"false"}
+                    alt="placeholder"
+                    style={{ width: 70, height: 70 }}
+                  />
+                  <p style={{ color: "#444" }}>Hacer Click</p>
+                </label>
+
+                <input
+                  id="upload-input"
+                  type="file"
+                  accept=".jpg,.jpeg,.gif,.png,.mov,.mp4"
+                  onChange={handleImageChange2}
+                />
+              </>
+            ) : (
+              <ImagePreview>
+                <img
+                  className="close-icon"
+                  src={CloseIcon}
+                  alt="CloseIcon"
+                  onClick={() => {
+                    setIsUploaded2(false);
+                    setImage2(null);
+                    setIsTwoImage(false);
+                  }}
+                />
+                {typeFile.includes("video") ? (
+                  <video
+                    id="uploaded-image"
+                    src={image2}
+                    draggable={false}
+                    controls
+                    autoPlay
+                    alt="uploaded-img"
+                  />
+                ) : (
+                  <img
+                    id="uploaded-image"
+                    src={image2}
+                    draggable={false}
+                    alt="uploaded-img"
+                  />
+                )}
+              </ImagePreview>
+            )}
+          </div>
+        </BoxUpload>
+        ) : (null)}
+        {isThreeImage ? (
+        <BoxUpload>
+          <div className="image-upload" if={false}>
+            {!isUploaded3 ? (
+              <>
+                <label htmlFor="upload-input">
+                  <img
+                    src={FolderIcon}
+                    draggable={"false"}
+                    alt="placeholder"
+                    style={{ width: 70, height: 70 }}
+                  />
+                  <p style={{ color: "#444" }}>Hacer Click</p>
+                </label>
+
+                <input
+                  id="upload-input"
+                  type="file"
+                  accept=".jpg,.jpeg,.gif,.png,.mov,.mp4"
+                  onChange={handleImageChange3}
+                />
+              </>
+            ) : (
+              <ImagePreview>
+                <img
+                  className="close-icon"
+                  src={CloseIcon}
+                  alt="CloseIcon"
+                  onClick={() => {
+                    setIsUploaded3(false);
+                    setImage3(null);
+                    setIsThreeImage(false);
+                  }}
+                />
+                {typeFile.includes("video") ? (
+                  <video
+                    id="uploaded-image"
+                    src={image3}
+                    draggable={false}
+                    controls
+                    autoPlay
+                    alt="uploaded-img"
+                  />
+                ) : (
+                  <img
+                    id="uploaded-image"
+                    src={image3}
+                    draggable={false}
+                    alt="uploaded-img"
+                  />
+                )}
+              </ImagePreview>
+            )}
+          </div>
+        </BoxUpload>
+        ) : (null)}
         </Grid>
         <Grid container
           alignItems="center"
