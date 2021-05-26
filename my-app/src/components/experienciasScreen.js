@@ -48,6 +48,7 @@ function Experiencias() {
     const [description, setDescription] = useState("");
     const [valueNew, setValueNew] = useState();
     const [open, setOpen] = React.useState(false);
+    const [rating, setRating] = React.useState(0);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -393,10 +394,24 @@ function Experiencias() {
         </BoxUpload>
         ) : (null)}
         </Grid>
+        <Grid container alignItems="center" justify="center" style={{minHeight: "7vh" }}> 
+            <Typography component="legend">
+              De 1 a 5 estrellas, ¿cómo valorarías la experiencia?
+            </Typography>
+          </Grid>
+          <Grid container alignItems="center" justify="center">
+            <Rating
+              name="experiencia-rating"
+              onChange={(event, newValue) => {
+                setRating(newValue);
+              }}
+              size="large"
+            ></Rating>
+          </Grid>
         <Grid container
           alignItems="center"
           justify="center"
-          style={{ minHeight: '20vh' }}>
+          style={{ minHeight: '10vh' }}>
               <Grid item xs = {2}>
                 <Button variant="contained" size="medium" className={classes.margin}>
                     Cancelar
