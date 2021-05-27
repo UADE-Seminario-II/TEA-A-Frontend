@@ -11,7 +11,7 @@ function Cartilla() {
   React.useEffect(() => {
     if (!ready) {
       axios
-        .get(`https://sip2-backend.herokuapp.com/Experiencias`)
+        .get(`https://sip2-backend.herokuapp.com/Actividades/experiencias/45`)
         .then((response) => {
           console.log(response.data);
           setResponseData(response.data);
