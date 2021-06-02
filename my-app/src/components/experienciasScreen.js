@@ -196,7 +196,7 @@ function Experiencias() {
         />
         <TextField style={{ width: 300 }}
           id="filled-read-only-input"
-          label="Direccion"
+          label="Dirección"
           defaultValue="Avenida Las Heras 225"
           InputProps={{
             readOnly: true,
@@ -208,7 +208,7 @@ function Experiencias() {
         <TextField style={{ width: 930 }}
           required
           id="outlined-required"
-          label="Titulo"
+          label="Título"
           value={valueNew}
           variant="outlined"
           onChange= {(event) => handleTitleChange(event.target.value)}
@@ -396,7 +396,7 @@ function Experiencias() {
         </Grid>
         <Grid container alignItems="center" justify="center" style={{minHeight: "7vh" }}> 
             <Typography component="legend">
-              De 1 a 5 estrellas, ¿cómo valorarías la experiencia?
+              De 1 a 5 estrellas, ¿Cómo valorarías la experiencia?.
             </Typography>
           </Grid>
           <Grid container alignItems="center" justify="center">
